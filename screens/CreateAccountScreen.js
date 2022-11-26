@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Modal } from 'react-native'
 import Content from '../components/Content'
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { useNavigation } from '@react-navigation/native';
 
 
 const CreateAccountScreen = () => {
@@ -11,6 +12,10 @@ const CreateAccountScreen = () => {
   const [phone, setPhone] = useState(null)
   const [address, setAddress] = useState(null)
   const [aboutCompany, setAboutCompany] = useState(null)
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isAccepted, setIsAccepted] = useState(false);
+
+  const navigation = useNavigation();
   return (
     <Content>
       <View className="w-full items-center bg-white rounded-md p-1 opacity-90 mb-2">
@@ -58,7 +63,7 @@ const CreateAccountScreen = () => {
               <TextInput placeholder='Fale mais sobre seu negócio' className="p-2 border-white border m-1 rounded-full" placeholderTextColor='#1a202c' value={aboutCompany} onChangeText={(text) => setAboutCompany(text)} />
             </View>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setModalVisible(true)}>
               <Text className="font-bold text-gray-500">Ler Termos e Condições</Text>
             </TouchableOpacity>
             <BouncyCheckbox
@@ -68,7 +73,7 @@ const CreateAccountScreen = () => {
               text="Deseja aceitar os termos e condições?"
               iconStyle={{ borderColor: "gray" }}
               innerIconStyle={{ borderWidth: 2 }}
-              onPress={(isChecked) => {}}
+              onPress={(isChecked) => {setIsAccepted(true)}}
             />
             
           </View>
@@ -76,10 +81,33 @@ const CreateAccountScreen = () => {
       </View>
 
       <View className="w-full items-center bg-white rounded-full p-1 mb-2">
-        <TouchableOpacity className="border-gray-300 border-2 w-full items-center justify-center rounded-full p-1">
+        <TouchableOpacity onPress={() => {isAccepted ? navigation.navigate('AccountCreatedScreen') : false}} className="border-gray-300 border-2 w-full items-center justify-center rounded-full p-1">
           <Text className="text-xl text-slate-500 font-semibold">Criar conta e pronto, vamos lavar!</Text>
         </TouchableOpacity>
       </View>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View className="items-center justify-center m-10 p-4 bg-white">
+          <View className="space-y-3">
+            <Text className="text-lg text-slate-500 font-bold">Termos e Condições</Text>
+            <Text className="text-slate-500">Iure dolor sunt vitae. Autem itaque incidunt. Voluptas eligendi veritatis est repellat iste aspernatur. Dolorum consequatur qui minima officia doloremque. Aliquid autem rerum commodi corporis autem aliquid.</Text>
+            <Text className="text-slate-500">Nulla laborum veritatis eius qui id. Non explicabo vero et accusamus et ut quia. Sint assumenda pariatur dolorem molestiae. Voluptatem asperiores vero. Ad molestiae perspiciatis architecto dolore voluptatum.</Text>
+            <Text className="text-slate-500">Voluptatem necessitatibus quas nulla vel placeat voluptas nisi. Saepe quod ipsum. Corporis consequatur est molestiae et qui quos quas et rem. Nihil non id nam fugiat nostrum odit quo sapiente accusantium. Ex possimus rem. Accusamus soluta itaque non quo.</Text>
+            <View className="items-center bg-gray-300 rounded-full p-1 mb-2">
+              <TouchableOpacity onPress={() => setModalVisible(!modalVisible)} className="border-white border-2 w-full items-center justify-center rounded-full p-1">
+                <Text className="text-slate-500 text-sm">Fechar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </Content>
   )
 }
