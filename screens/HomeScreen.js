@@ -3,14 +3,15 @@ import { View, Text, SafeAreaView, ImageBackground, TouchableOpacity, StyleSheet
 import MapView from 'react-native-maps';
 import { Marker } from "react-native-maps";
 import * as Location from 'expo-location';
-import { HomeIcon, TruckIcon, GiftIcon, PlusCircleIcon, MinusCircleIcon, Cog6ToothIcon } from "react-native-heroicons/solid"
+import { HomeIcon, TruckIcon, GiftIcon, PlusCircleIcon, MinusCircleIcon, Cog6ToothIcon, EllipsisHorizontalCircleIcon, SquaresPlusIcon } from "react-native-heroicons/solid"
 
 const HomeScreen = () => {
-  const [currentLatitude, setCurrentLatitude] = useState(-15.793889)
-  const [currentLongitude, setCurrentLongitude] = useState(-47.882778)
+  const [currentLatitude, setCurrentLatitude] = useState(-19.790543)
+  const [currentLongitude, setCurrentLongitude] = useState(-42.137651)
+  const [serviceProviders, setServiceProviders] = useState([])
   const position = {
-    latitude: -15.793889,
-    longitude: -47.882778
+    latitude: -19.790543,
+    longitude: -42.137651
   };
 
   useEffect(() => {
@@ -25,6 +26,13 @@ const HomeScreen = () => {
       setCurrentLatitude(location["coords"]["latitude"])
       setCurrentLongitude(location["coords"]["longitude"])
     })();
+
+    setServiceProviders([
+      {latitude: -19.790180, longitude: -42.139260, id: 'quality', name: 'Quality Hotel'},
+      {latitude: -19.7872487, longitude: -42.1369039, id: 'hotel-rota-116', name: 'Hotel Rota 116'},
+      {latitude: -19.7871952, longitude: -42.1372458, id: 'abc-hotel', name: 'ABC Hotel'},
+      {latitude: -19.7878301, longitude: -42.1380789, id: 'moda-fing', name: 'Moda Fing'},
+    ])
   }, []);
 
   const [clothes, setClothes] = useState(0)
@@ -48,6 +56,13 @@ const HomeScreen = () => {
                 }}
                 >
                   <Marker coordinate={position} />
+                  {serviceProviders.map((serviceProvider) => <>
+                    <Marker coordinate={serviceProvider} key={serviceProvider.id}>
+                      <View className="items-center justify-center">
+                        <SquaresPlusIcon size={20} color="#7b90b3" />
+                      </View>
+                    </Marker>
+                  </>)}
                 </MapView>
               </View>
             </View>
@@ -116,7 +131,7 @@ const HomeScreen = () => {
               <View className="bg-white justify-center items-center rounded-md p-1" style={{width: 100}}>
                 <View className='border-gray-300 rounded-md border-2 items-center w-full'>
                   <TouchableOpacity className="w-full items-center justify-center">
-                    <HomeIcon color='#82a0ad' size={30} />
+                    <EllipsisHorizontalCircleIcon color='#82a0ad' size={30} />
                   </TouchableOpacity>
                   <View className='justify-center items-center'>
                     <Text className="text-slate-600 font-semibold">Outros</Text>
@@ -148,7 +163,7 @@ const HomeScreen = () => {
           </View>
         </ScrollView>
       </SafeAreaView>
-      <View style={{position: 'absolute'}} className="-rotate-12 bg-slate-200 rounded-full p-1">
+      <View style={{position: 'absolute'}} className="-rotate-12 bg-slate-200 rounded-full p-1 mt-4">
         <View className='border-white border-2 items-center justify-center rounded-full w-full p-2'>
           <Cog6ToothIcon color='#82a0ad' size={30} />
           <Text className="text-gray-500 text-xl">Pega pra Lavar</Text>
