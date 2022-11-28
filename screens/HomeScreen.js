@@ -77,12 +77,12 @@ const HomeScreen = () => {
             </TouchableOpacity>
             <View className='justify-center items-center'>
               <Text className="text-slate-600 font-semibold ">Roupas</Text>
-              <Text className="text-sm text-slate-400">({clothes}) items</Text>
+              <Text className="text-sm text-slate-400">({clothes}) roupas</Text>
               <View className='flex-row justify-center'>
-                <TouchableOpacity onPress={() => clothes > 0 ? setClothes(clothes-1) : true}>
+                <TouchableOpacity onPress={() => clothes > 0 ? setClothes(clothes-10) : true}>
                   <MinusCircleIcon color='#82a0ad' />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => setClothes(clothes+1)}>
+                <TouchableOpacity onPress={() => setClothes(clothes+10)}>
                   <PlusCircleIcon color='#82a0ad' />
                 </TouchableOpacity>
               </View>
