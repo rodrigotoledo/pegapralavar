@@ -26,7 +26,7 @@ const HomeScreen = () => {
     <Content>
       <View className="w-full items-center bg-white rounded-md p-1 opacity-90 mb-2">
         <View className="border-gray-300 w-full border-2 items-end justify-center rounded-md ">
-          <Text className="text-lg font-bold text-gray-500">Serviços próximos a você</Text>
+          <Text className="text-lg font-bold text-gray-500">Próximos a você</Text>
           <MapView className="w-full " style={{height: 200}} initialRegion={{
             latitude: currentLatitude,
             longitude: currentLongitude,
