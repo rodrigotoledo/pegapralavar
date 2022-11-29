@@ -1,24 +1,24 @@
-import React, {useContext} from 'react'
-import { View, Text, ImageBackground, TouchableOpacity } from 'react-native'
-import MapView from 'react-native-maps';
-import { Marker } from "react-native-maps";
-import { HomeIcon, TruckIcon, GiftIcon, PlusCircleIcon, MinusCircleIcon, SquaresPlusIcon, SparklesIcon } from "react-native-heroicons/solid"
+import React, {useContext, useEffect} from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
+import { HomeIcon, TruckIcon, GiftIcon, PlusCircleIcon, MinusCircleIcon, SparklesIcon } from "react-native-heroicons/solid"
 import { useNavigation } from '@react-navigation/native';
 import Content from '../components/Content';
 import { GlobalContext } from '../GlobalContext';
+import MapWithProviders from '../components/MapWithProviders';
 
 
 const HomeScreen = () => {
   const {
-    currentLatitude,
-    currentLongitude,
-    serviceProviders,
-    position,
     clothes, setClothes,
     car, setCar,
     house, setHouse,
-    others, setOthers
+    others, setOthers,
+    getMapElements
   } = useContext(GlobalContext);
+
+  useEffect(() => {
+    getMapElements()
+  }, [])
 
   const navigation = useNavigation();
 
@@ -26,23 +26,7 @@ const HomeScreen = () => {
     <Content>
       <View className="w-full items-center bg-white rounded-md p-1 opacity-90 mb-2">
         <View className="border-gray-300 w-full border-2 items-end justify-center rounded-md ">
-          <Text className="text-lg font-bold text-gray-500">Serviços próximos a você</Text>
-          <MapView className="w-full " style={{height: 200}} initialRegion={{
-            latitude: currentLatitude,
-            longitude: currentLongitude,
-            latitudeDelta: 0.00922,
-            longitudeDelta: 0.00421,
-          }}
-          >
-            <Marker coordinate={position} />
-            {serviceProviders.map((serviceProvider) => <View key={serviceProvider.id}>
-              <Marker coordinate={serviceProvider}>
-                <View className="items-center justify-center">
-                  <SquaresPlusIcon size={20} color="#7b90b3" />
-                </View>
-              </Marker>
-            </View>)}
-          </MapView>
+          <MapWithProviders />
         </View>
       </View>
 
@@ -54,7 +38,7 @@ const HomeScreen = () => {
             </TouchableOpacity>
             <View className='justify-center items-center'>
               <Text className="text-slate-600 font-semibold ">Roupas</Text>
-              <Text className="text-sm text-slate-400">({clothes}) roupas</Text>
+              <Text className="text-sm text-slate-400">Até {clothes} roupas</Text>
               <View className='flex-row justify-center'>
                 <TouchableOpacity onPress={() => clothes > 0 ? setClothes(clothes-10) : true}>
                   <MinusCircleIcon color='#82a0ad' />
@@ -73,7 +57,7 @@ const HomeScreen = () => {
             </TouchableOpacity>
             <View className='justify-center items-center'>
               <Text className="text-slate-600 font-semibold">Carro</Text>
-              <Text className="text-sm text-slate-400">({car}) carros</Text>
+              <Text className="text-sm text-slate-400">{car} carro(s)</Text>
               <View className='flex-row justify-center'>
                 <TouchableOpacity onPress={() => car > 0 ? setCar(car-1) : true}>
                   <MinusCircleIcon color='#82a0ad' />
@@ -95,7 +79,7 @@ const HomeScreen = () => {
             </TouchableOpacity>
             <View className='justify-center items-center'>
               <Text className="text-slate-600 font-semibold">Casa</Text>
-              <Text className="text-sm text-slate-400">({house}) cômodos</Text>
+              <Text className="text-sm text-slate-400">Até {house} cômodos</Text>
               <View className='flex-row justify-center'>
                 <TouchableOpacity onPress={() => house > 0 ? setHouse(house-4) : true}>
                   <MinusCircleIcon color='#82a0ad' />
@@ -114,7 +98,7 @@ const HomeScreen = () => {
             </TouchableOpacity>
             <View className='justify-center items-center'>
               <Text className="text-slate-600 font-semibold">Outros</Text>
-              <Text className="text-sm text-slate-400">({others}) items</Text>
+              <Text className="text-sm text-slate-400">Até {others} items</Text>
               <View className='flex-row justify-center'>
                 <TouchableOpacity onPress={() => others > 0 ? setOthers(others-1) : true}>
                   <MinusCircleIcon color='#82a0ad' />

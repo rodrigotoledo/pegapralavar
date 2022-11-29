@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 import * as Location from 'expo-location';
 
 const GlobalContext = createContext();
@@ -17,7 +17,12 @@ const GlobalProvider = ({children}) => {
   const [house, setHouse] = useState(0)
   const [others, setOthers] = useState(0)
 
-  useEffect(() => {
+  const [clothesDescription, setClothesDescription] = useState(null)
+  const [carDescription, setCarDescription] = useState(null)
+  const [houseDescription, setHouseDescription] = useState(null)
+  const [othersDescription, setOthersDescription] = useState(null)
+
+  const getMapElements = () => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -28,22 +33,30 @@ const GlobalProvider = ({children}) => {
       let location = await Location.getCurrentPositionAsync({});
       setCurrentLatitude(location["coords"]["latitude"])
       setCurrentLongitude(location["coords"]["longitude"])
-    })();
+      console.log('buscando--')
+      console.log(currentLatitude)
+      console.log(currentLongitude)
 
-    setServiceProviders([
-      {latitude: -19.790180, longitude: -42.139260, id: 'quality', name: 'Quality Hotel'},
-      {latitude: -19.7872487, longitude: -42.1369039, id: 'hotel-rota-116', name: 'Hotel Rota 116'},
-      {latitude: -19.7871952, longitude: -42.1372458, id: 'abc-hotel', name: 'ABC Hotel'},
-      {latitude: -19.7878301, longitude: -42.1380789, id: 'moda-fing', name: 'Moda Fing'},
-    ])
-  }, []);
+      setServiceProviders([
+        {latitude: -19.790180, longitude: -42.139260, id: 'quality', name: 'Quality Hotel'},
+        {latitude: -19.7872487, longitude: -42.1369039, id: 'hotel-rota-116', name: 'Hotel Rota 116'},
+        {latitude: -19.7871952, longitude: -42.1372458, id: 'abc-hotel', name: 'ABC Hotel'},
+        {latitude: -19.7878301, longitude: -42.1380789, id: 'moda-fing', name: 'Moda Fing'},
+      ])
+    })();
+  }
 
   return (
     <GlobalContext.Provider value={{
       currentLatitude, setCurrentLatitude, currentLongitude, setCurrentLongitude,
       position,
       serviceProviders, setServiceProviders,
-      clothes, setClothes, car, setCar, house, setHouse, others, setOthers
+      clothes, setClothes, car, setCar, house, setHouse, others, setOthers,
+      clothesDescription, setClothesDescription,
+      carDescription, setCarDescription,
+      houseDescription, setHouseDescription,
+      othersDescription, setOthersDescription,
+      getMapElements
     }}>
       {children}
     </GlobalContext.Provider>

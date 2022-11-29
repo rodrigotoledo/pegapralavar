@@ -39,27 +39,27 @@ const CreateAccountScreen = () => {
           </View>
           <View className="justify-center space-y-3">
             <Text className="font-bold text-gray-500">Comece preenchendo os campos abaixo e logo em seguida leia e aceite os termos de contrato</Text>
-            <View className="rounded-full bg-slate-400">
+            <View className="rounded-full bg-gray-100">
               <TextInput placeholder='Nome' className="p-2 border-white border m-1 rounded-full" placeholderTextColor='#1a202c' value={name} onChangeText={(text) => setName(text)} />
             </View>
 
-            <View className="rounded-full bg-slate-400">
+            <View className="rounded-full bg-gray-100">
               <TextInput placeholder='Email' className="p-2 border-white border m-1 rounded-full" placeholderTextColor='#1a202c' value={email} onChangeText={(text) => setEmail(text)} />
             </View>
 
-            <View className="rounded-full bg-slate-400">
+            <View className="rounded-full bg-gray-100">
               <TextInput placeholder='Telefone celular' className="p-2 border-white border m-1 rounded-full" placeholderTextColor='#1a202c' value={cellPhone} onChangeText={(text) => setCellPhone(text)} />
             </View>
 
-            <View className="rounded-full bg-slate-400">
+            <View className="rounded-full bg-gray-100">
               <TextInput placeholder='Telefone fixo (opcional)' className="p-2 border-white border m-1 rounded-full" placeholderTextColor='#1a202c' value={phone} onChangeText={(text) => setPhone(text)} />
             </View>
 
-            <View className="rounded-full bg-slate-400">
+            <View className="rounded-full bg-gray-100">
               <TextInput placeholder='Endereço comercial' className="p-2 border-white border m-1 rounded-full" placeholderTextColor='#1a202c' value={address} onChangeText={(text) => setAddress(text)} />
             </View>
 
-            <View className="rounded-full bg-slate-400">
+            <View className="rounded-full bg-gray-100">
               <TextInput placeholder='Fale mais sobre seu negócio' className="p-2 border-white border m-1 rounded-full" placeholderTextColor='#1a202c' value={aboutCompany} onChangeText={(text) => setAboutCompany(text)} />
             </View>
 

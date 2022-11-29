@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { HomeIcon, TruckIcon, GiftIcon, SparklesIcon } from "react-native-heroicons/solid"
 import { useNavigation } from '@react-navigation/native';
@@ -7,17 +7,20 @@ import { GlobalContext } from '../GlobalContext';
 
 const PrepareCartScreen = () => {
   const {
-    currentLatitude,
-    currentLongitude,
-    serviceProviders,
-    position,
-    clothes, setClothes,
-    car, setCar,
-    house, setHouse,
-    others, setOthers
+    clothes, car, house, others,
+    clothesDescription, setClothesDescription,
+    carDescription, setCarDescription,
+    houseDescription, setHouseDescription,
+    othersDescription, setOthersDescription
   } = useContext(GlobalContext);
 
   const navigation = useNavigation();
+
+  function canAdvance(){
+    if((clothes > 0 && clothesDescription !== "") || (car > 0 && carDescription !== "") || (house > 0 && houseDescription !== "") || (others > 0 && othersDescription !== "")){
+      navigation.navigate('SelectProvidersScreen')
+    }
+  }
 
   return(
     <Content>
@@ -38,34 +41,34 @@ const PrepareCartScreen = () => {
           {clothes > 0 &&
           <View className="flex flex-row space-x-2 border-2 border-gray-300 rounded-md my-2">
             <GiftIcon color='#82a0ad' size={40} />
-            <TextInput multiline={true} className="bg-transparent mr-10" placeholder={`Descreva suas ${clothes} ROUPA(S)`} />
+            <TextInput onChangeText={(e) => setClothesDescription(e)} value={clothesDescription} multiline={true} className="bg-transparent mr-10" placeholder={`Descreva suas ${clothes} ROUPA(S)`} />
           </View>
           }
 
           {car > 0 &&
           <View className="flex flex-row space-x-4 border-2 border-gray-300 rounded-md my-2 flex items-stretch">
             <TruckIcon color='#82a0ad' size={40} />
-            <TextInput multiline={true} className="bg-transparent mr-10" placeholder={`Descreva detalhes dos ${car} CARRO(S)`} />
+            <TextInput onChangeText={(e) => setCarDescription(e)} value={carDescription} multiline={true} className="bg-transparent mr-10" placeholder={`Descreva detalhes dos ${car} CARRO(S)`} />
           </View>
           }
 
           {house > 0 &&
           <View className="flex flex-row space-x-4 border-2 border-gray-300 rounded-md my-2">
             <HomeIcon color='#82a0ad' size={40} />
-            <TextInput multiline={true} className="bg-transparent mr-10" placeholder={`Na casa, descreva os ${house} CÔMODO(S)`} />
+            <TextInput onChangeText={(e) => setHouseDescription(e)} value={houseDescription} multiline={true} className="bg-transparent mr-10" placeholder={`Na casa, descreva os ${house} CÔMODO(S)`} />
           </View>
           }
 
           {others > 0 &&
           <View className="flex flex-row space-x-4 border-2 border-gray-300 rounded-md my-2">
             <SparklesIcon color='#82a0ad' size={40} />
-            <TextInput multiline={true} className="bg-transparent mr-10" placeholder={`Também descreva os ${others} ITEM(S)`} />
+            <TextInput onChangeText={(e) => setOthersDescription(e)} value={othersDescription} multiline={true} className="bg-transparent mr-10" placeholder={`Também descreva os ${others} ITEM(S)`} />
           </View>
           }
         </View>
       </View>
       <View className="w-full items-center bg-white rounded-full p-1 mb-2">
-        <TouchableOpacity className="border-gray-300 border-2 w-full items-center justify-center rounded-full p-1" onPress={() => navigation.navigate('PrepareCartScreen') }>
+        <TouchableOpacity className="border-gray-300 border-2 w-full items-center justify-center rounded-full p-1" onPress={() => canAdvance() }>
           <Text className="text-xl text-slate-500 font-semibold">Vamos lá?!</Text>
         </TouchableOpacity>
       </View>
