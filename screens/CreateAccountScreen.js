@@ -86,6 +86,12 @@ const CreateAccountScreen = () => {
         </TouchableOpacity>
       </View>
 
+      <View className="w-full items-center bg-white rounded-full p-1">
+        <TouchableOpacity className="border-gray-300 border-2 w-full items-center justify-center rounded-full p-1" onPress={() => navigation.goBack() }>
+          <Text className="text-slate-500 font-semibold">Voltar</Text>
+        </TouchableOpacity>
+      </View>
+
       <Modal
         animationType="slide"
         transparent={true}

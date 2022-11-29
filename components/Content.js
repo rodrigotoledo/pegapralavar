@@ -18,10 +18,10 @@ export default function Content({children}) {
         </ScrollView>
       </SafeAreaView>
     </ImageBackground>
-    <View className="-rotate-12 bg-slate-200 rounded-full p-1 mt-10 ml-2 absolute">
+    <View className="-rotate-12 bg-slate-200 rounded-full p-1 mt-4 ml-2 absolute">
       <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')} className='border-white border-2 items-center justify-center rounded-full w-full p-2'>
         <Cog6ToothIcon color='#82a0ad' size={30} />
-        <Text className="text-gray-500 text-xl">Pega pra Lavar</Text>
+        <Text className="text-gray-500">Pega pra Lavar</Text>
       </TouchableOpacity>
     </View>
     </>

@@ -28,7 +28,7 @@ const PrepareCartScreen = () => {
         <View className="border-gray-300 border-2 p-1 w-full">
           <View className="w-full items-end justify-center rounded-md">
             <View className="items-end justify-center">
-              <Text className="text-lg font-bold text-gray-500">Que tal descrever sobre a limpeza?</Text>
+              <Text className="text-lg font-bold text-gray-500">Descreva sobre a limpeza</Text>
             </View>
           </View>
           <View className="space-y-2">
